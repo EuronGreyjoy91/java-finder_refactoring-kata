@@ -16,13 +16,13 @@ public class Finder {
 			for (int j = i + 1; j < _p.size(); j++) {
 				F r = new F();
 				if (_p.get(i).getBirthDate().getTime() < _p.get(j).getBirthDate().getTime()) {
-					r.P1 = _p.get(i);
-					r.P2 = _p.get(j);
+					r.setPersonOne(_p.get(i));
+					r.setPersonTwo(_p.get(j));
 				} else {
-					r.P1 = _p.get(j);
-					r.P2 = _p.get(i);
+					r.setPersonOne(_p.get(j));
+					r.setPersonTwo(_p.get(i));
 				}
-				r.D = r.P2.getBirthDate().getTime() - r.P1.getBirthDate().getTime();
+				r.setD(r.getPersonTwo().getBirthDate().getTime() - r.getPersonOne().getBirthDate().getTime());
 				tr.add(r);
 			}
 		}
@@ -35,13 +35,13 @@ public class Finder {
 		for (F result : tr) {
 			switch (ft) {
 				case One :
-					if (result.D < answer.D) {
+					if (result.getD() < answer.getD()) {
 						answer = result;
 					}
 					break;
 
 				case Two :
-					if (result.D > answer.D) {
+					if (result.getD() > answer.getD()) {
 						answer = result;
 					}
 					break;
