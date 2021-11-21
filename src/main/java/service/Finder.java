@@ -7,24 +7,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Finder {
-	private final List<Person> _p;
+	private final List<Person> persons;
 
 	public Finder(List<Person> p) {
-		_p = p;
+		persons = p;
 	}
 
 	public F Find(FT ft) {
 		List<F> tr = new ArrayList<F>();
 
-		for (int i = 0; i < _p.size() - 1; i++) {
-			for (int j = i + 1; j < _p.size(); j++) {
+		for (int i = 0; i < persons.size() - 1; i++) {
+			for (int j = i + 1; j < persons.size(); j++) {
 				F r = new F();
-				if (_p.get(i).getBirthDate().getTime() < _p.get(j).getBirthDate().getTime()) {
-					r.setPersonOne(_p.get(i));
-					r.setPersonTwo(_p.get(j));
+				if (persons.get(i).getBirthDate().getTime() < persons.get(j).getBirthDate().getTime()) {
+					r.setPersonOne(persons.get(i));
+					r.setPersonTwo(persons.get(j));
 				} else {
-					r.setPersonOne(_p.get(j));
-					r.setPersonTwo(_p.get(i));
+					r.setPersonOne(persons.get(j));
+					r.setPersonTwo(persons.get(i));
 				}
 				r.setD(r.getPersonTwo().getBirthDate().getTime() - r.getPersonOne().getBirthDate().getTime());
 				tr.add(r);
