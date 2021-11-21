@@ -34,13 +34,13 @@ public class Finder {
 		F answer = tr.get(0);
 		for (F result : tr) {
 			switch (ft) {
-				case One :
+				case ONE:
 					if (result.getD() < answer.getD()) {
 						answer = result;
 					}
 					break;
 
-				case Two :
+				case TWO:
 					if (result.getD() > answer.getD()) {
 						answer = result;
 					}

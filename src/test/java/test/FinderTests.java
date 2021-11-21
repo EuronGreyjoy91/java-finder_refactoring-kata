@@ -37,7 +37,7 @@ public class FinderTests {
 		List<Person> list = new ArrayList<Person>();
 		Finder finder = new Finder(list);
 
-		F result = finder.Find(FT.One);
+		F result = finder.Find(FT.ONE);
 		assertEquals(null, result.getPersonOne());
 
 		assertEquals(null, result.getPersonTwo());
@@ -50,7 +50,7 @@ public class FinderTests {
 
 		Finder finder = new Finder(list);
 
-		F result = finder.Find(FT.One);
+		F result = finder.Find(FT.ONE);
 
 		assertEquals(null, result.getPersonOne());
 		assertEquals(null, result.getPersonTwo());
@@ -63,7 +63,7 @@ public class FinderTests {
 		list.add(greg);
 		Finder finder = new Finder(list);
 
-		F result = finder.Find(FT.One);
+		F result = finder.Find(FT.ONE);
 
 		assertEquals(sue, result.getPersonOne());
 		assertEquals(greg, result.getPersonTwo());
@@ -77,7 +77,7 @@ public class FinderTests {
 
 		Finder finder = new Finder(list);
 
-		F result = finder.Find(FT.Two);
+		F result = finder.Find(FT.TWO);
 
 		assertEquals(greg, result.getPersonOne());
 		assertEquals(mike, result.getPersonTwo());
@@ -92,7 +92,7 @@ public class FinderTests {
 		list.add(greg);
 		Finder finder = new Finder(list);
 
-		F result = finder.Find(FT.Two);
+		F result = finder.Find(FT.TWO);
 
 		assertEquals(sue, result.getPersonOne());
 		assertEquals(sarah, result.getPersonTwo());
@@ -108,7 +108,7 @@ public class FinderTests {
 
 		Finder finder = new Finder(list);
 
-		F result = finder.Find(FT.One);
+		F result = finder.Find(FT.ONE);
 
 		assertEquals(sue, result.getPersonOne());
 		assertEquals(greg, result.getPersonTwo());
