@@ -1,7 +1,7 @@
 package test;
 
 import enumerator.FinderType;
-import model.F;
+import model.PersonsComparison;
 import model.Person;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,10 +37,10 @@ public class FinderTests {
         List<Person> list = new ArrayList<Person>();
         Finder finder = new Finder(list);
 
-        F result = finder.Find(FinderType.CLOSEST);
-        assertEquals(null, result.getPersonOne());
+        PersonsComparison result = finder.Find(FinderType.CLOSEST);
 
-        assertEquals(null, result.getPersonTwo());
+        assertEquals(null, result.getYoungestPerson());
+        assertEquals(null, result.getOldestPerson());
     }
 
     @Test
@@ -50,10 +50,10 @@ public class FinderTests {
 
         Finder finder = new Finder(list);
 
-        F result = finder.Find(FinderType.CLOSEST);
+        PersonsComparison result = finder.Find(FinderType.CLOSEST);
 
-        assertEquals(null, result.getPersonOne());
-        assertEquals(null, result.getPersonTwo());
+        assertEquals(null, result.getYoungestPerson());
+        assertEquals(null, result.getOldestPerson());
     }
 
     @Test
@@ -63,10 +63,10 @@ public class FinderTests {
         list.add(greg);
         Finder finder = new Finder(list);
 
-        F result = finder.Find(FinderType.CLOSEST);
+        PersonsComparison result = finder.Find(FinderType.CLOSEST);
 
-        assertEquals(sue, result.getPersonOne());
-        assertEquals(greg, result.getPersonTwo());
+        assertEquals(sue, result.getYoungestPerson());
+        assertEquals(greg, result.getOldestPerson());
     }
 
     @Test
@@ -77,10 +77,10 @@ public class FinderTests {
 
         Finder finder = new Finder(list);
 
-        F result = finder.Find(FinderType.FURTHEST);
+        PersonsComparison result = finder.Find(FinderType.FURTHEST);
 
-        assertEquals(greg, result.getPersonOne());
-        assertEquals(mike, result.getPersonTwo());
+        assertEquals(greg, result.getYoungestPerson());
+        assertEquals(mike, result.getOldestPerson());
     }
 
     @Test
@@ -92,10 +92,10 @@ public class FinderTests {
         list.add(greg);
         Finder finder = new Finder(list);
 
-        F result = finder.Find(FinderType.FURTHEST);
+        PersonsComparison result = finder.Find(FinderType.FURTHEST);
 
-        assertEquals(sue, result.getPersonOne());
-        assertEquals(sarah, result.getPersonTwo());
+        assertEquals(sue, result.getYoungestPerson());
+        assertEquals(sarah, result.getOldestPerson());
     }
 
     @Test
@@ -108,10 +108,10 @@ public class FinderTests {
 
         Finder finder = new Finder(list);
 
-        F result = finder.Find(FinderType.CLOSEST);
+        PersonsComparison result = finder.Find(FinderType.CLOSEST);
 
-        assertEquals(sue, result.getPersonOne());
-        assertEquals(greg, result.getPersonTwo());
+        assertEquals(sue, result.getYoungestPerson());
+        assertEquals(greg, result.getOldestPerson());
     }
 
 }
