@@ -1,5 +1,5 @@
 package service;
-import enumerator.FT;
+import enumerator.FinderType;
 import model.F;
 import model.Person;
 
@@ -13,7 +13,7 @@ public class Finder {
 		this.persons = persons;
 	}
 
-	public F Find(FT ft) { //ft = ONE, TWO
+	public F Find(FinderType finderType) { //ft = ONE, TWO
 		List<F> tr = new ArrayList<F>();
 
 		//Este primer bloque lo que hace es iterar la lista de personas que se le pasa,
@@ -48,14 +48,14 @@ public class Finder {
 		// si el tipo de busqueda es TWO, el resultado va a ser la persona con MAYOR diferencia entre edades
 
 		for (F result : tr) {
-			switch (ft) {
-				case ONE:
+			switch (finderType) {
+				case CLOSEST:
 					if (result.getD() < answer.getD()) {
 						answer = result;
 					}
 					break;
 
-				case TWO:
+				case FURTHEST:
 					if (result.getD() > answer.getD()) {
 						answer = result;
 					}

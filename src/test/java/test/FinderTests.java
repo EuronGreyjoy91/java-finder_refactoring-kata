@@ -1,6 +1,6 @@
 package test;
 
-import enumerator.FT;
+import enumerator.FinderType;
 import model.F;
 import model.Person;
 import org.junit.Before;
@@ -37,7 +37,7 @@ public class FinderTests {
         List<Person> list = new ArrayList<Person>();
         Finder finder = new Finder(list);
 
-        F result = finder.Find(FT.ONE);
+        F result = finder.Find(FinderType.CLOSEST);
         assertEquals(null, result.getPersonOne());
 
         assertEquals(null, result.getPersonTwo());
@@ -50,7 +50,7 @@ public class FinderTests {
 
         Finder finder = new Finder(list);
 
-        F result = finder.Find(FT.ONE);
+        F result = finder.Find(FinderType.CLOSEST);
 
         assertEquals(null, result.getPersonOne());
         assertEquals(null, result.getPersonTwo());
@@ -63,7 +63,7 @@ public class FinderTests {
         list.add(greg);
         Finder finder = new Finder(list);
 
-        F result = finder.Find(FT.ONE);
+        F result = finder.Find(FinderType.CLOSEST);
 
         assertEquals(sue, result.getPersonOne());
         assertEquals(greg, result.getPersonTwo());
@@ -77,7 +77,7 @@ public class FinderTests {
 
         Finder finder = new Finder(list);
 
-        F result = finder.Find(FT.TWO);
+        F result = finder.Find(FinderType.FURTHEST);
 
         assertEquals(greg, result.getPersonOne());
         assertEquals(mike, result.getPersonTwo());
@@ -92,7 +92,7 @@ public class FinderTests {
         list.add(greg);
         Finder finder = new Finder(list);
 
-        F result = finder.Find(FT.TWO);
+        F result = finder.Find(FinderType.FURTHEST);
 
         assertEquals(sue, result.getPersonOne());
         assertEquals(sarah, result.getPersonTwo());
@@ -108,7 +108,7 @@ public class FinderTests {
 
         Finder finder = new Finder(list);
 
-        F result = finder.Find(FT.ONE);
+        F result = finder.Find(FinderType.CLOSEST);
 
         assertEquals(sue, result.getPersonOne());
         assertEquals(greg, result.getPersonTwo());
