@@ -1,70 +1,74 @@
 package service;
+
 import enumerator.FinderType;
-import model.PersonsComparison;
 import model.Person;
+import model.PersonsAgeComparison;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Finder {
-	private final List<Person> persons;
+    private final Integer MINIMUM_SIZE_OF_LIST_FOR_PROCESS = 1;
 
-	public Finder(List<Person> persons) {
-		this.persons = persons;
-	}
+    private final List<Person> persons;
 
-	public PersonsComparison Find(FinderType finderType) { //ft = ONE, TWO
-		List<PersonsComparison> tr = new ArrayList<PersonsComparison>();
+    public Finder(List<Person> persons) {
+        this.persons = persons;
+    }
 
-		//Este primer bloque lo que hace es iterar la lista de personas que se le pasa,
-		//y por cada una se fija si es mayor o menor (edad) con las otras, aparte de eso le setea la diferencia en milisegundos
-		//entre las edades.
+    public PersonsAgeComparison findByFinderType(FinderType finderType) {
+        List<PersonsAgeComparison> personsAgeComparisons = new ArrayList<>();
 
-		for (int i = 0; i < persons.size() - 1; i++) {
-			for (int j = i + 1; j < persons.size(); j++) {
-				PersonsComparison personsComparison = new PersonsComparison();
+        for (int i = 0; i < persons.size() - 1; i++) {
+            for (int j = i + 1; j < persons.size(); j++)
+                personsAgeComparisons.add(getAgeComparisonBetweenPersons(persons.get(i), persons.get(j)));
+        }
 
-				if (persons.get(i).getBirthDate().getTime() < persons.get(j).getBirthDate().getTime()) {
-					personsComparison.setYoungestPerson(persons.get(i));
-					personsComparison.setOldestPerson(persons.get(j));
-				} else {
-					personsComparison.setYoungestPerson(persons.get(j));
-					personsComparison.setOldestPerson(persons.get(i));
-				}
+        return getResult(personsAgeComparisons, finderType);
+    }
 
-				personsComparison.setMillisBetweenOldestAndYoungest(personsComparison.getOldestPerson().getBirthDate().getTime() - personsComparison.getYoungestPerson().getBirthDate().getTime());
-				tr.add(personsComparison);
-			}
-		}
+    private PersonsAgeComparison getAgeComparisonBetweenPersons(Person firstPerson, Person secondPerson) {
+        Person youngest;
+        Person oldest;
 
-		//Si la lista donde se guardan las evaluaciones entre personas esta vacia, devuelvo un objeto F vacio
-		if (tr.size() < 1) {
-			return new PersonsComparison();
-		}
+        if (firstPerson.isYoungestThan(secondPerson)) {
+            youngest = firstPerson;
+            oldest = secondPerson;
+        } else {
+            youngest = secondPerson;
+            oldest = firstPerson;
+        }
 
-		//Agarro la primer evaluacion entre personas because... reasons.
-		PersonsComparison answer = tr.get(0);
+        return new PersonsAgeComparison(youngest, oldest);
+    }
 
-		//Itero la lista de evaluaciones,
-		// si el tipo de busqueda es ONE, el resultado va a ser la persona con MENOR diferencia entre edades
-		// si el tipo de busqueda es TWO, el resultado va a ser la persona con MAYOR diferencia entre edades
+    private PersonsAgeComparison getResult(List<PersonsAgeComparison> personsAgeComparisons, FinderType finderType) {
+        if (!listHasMinimumSizeToProcess(personsAgeComparisons))
+            return new PersonsAgeComparison();
 
-		for (PersonsComparison result : tr) {
-			switch (finderType) {
-				case CLOSEST:
-					if (result.getMillisBetweenOldestAndYoungest() < answer.getMillisBetweenOldestAndYoungest()) {
-						answer = result;
-					}
-					break;
+        if (FinderType.CLOSEST.equals(finderType))
+            return getMinimumAmplitude(personsAgeComparisons);
 
-				case FURTHEST:
-					if (result.getMillisBetweenOldestAndYoungest() > answer.getMillisBetweenOldestAndYoungest()) {
-						answer = result;
-					}
-					break;
-			}
-		}
+        return getMaximumAmplitude(personsAgeComparisons);
+    }
 
-		return answer;
-	}
+    private Boolean listHasMinimumSizeToProcess(List<PersonsAgeComparison> personsAgeComparisons) {
+        return personsAgeComparisons.size() >= MINIMUM_SIZE_OF_LIST_FOR_PROCESS;
+    }
+
+    private PersonsAgeComparison getMinimumAmplitude(List<PersonsAgeComparison> personsAgeComparisons){
+        return Collections.min(
+                personsAgeComparisons,
+                Comparator.comparing(PersonsAgeComparison::getMillisBetweenOldestAndYoungest)
+        );
+    }
+
+    private PersonsAgeComparison getMaximumAmplitude(List<PersonsAgeComparison> personsAgeComparisons){
+        return Collections.max(
+                personsAgeComparisons,
+                Comparator.comparing(PersonsAgeComparison::getMillisBetweenOldestAndYoungest)
+        );
+    }
 }

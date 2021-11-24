@@ -1,8 +1,8 @@
 package test;
 
 import enumerator.FinderType;
-import model.PersonsComparison;
 import model.Person;
+import model.PersonsAgeComparison;
 import org.junit.Before;
 import org.junit.Test;
 import service.Finder;
@@ -34,10 +34,10 @@ public class FinderTests {
 
     @Test
     public void Returns_Empty_Results_When_Given_Empty_List() {
-        List<Person> list = new ArrayList<Person>();
+        List<Person> list = new ArrayList<>();
         Finder finder = new Finder(list);
 
-        PersonsComparison result = finder.Find(FinderType.CLOSEST);
+        PersonsAgeComparison result = finder.findByFinderType(FinderType.CLOSEST);
 
         assertEquals(null, result.getYoungestPerson());
         assertEquals(null, result.getOldestPerson());
@@ -45,12 +45,12 @@ public class FinderTests {
 
     @Test
     public void Returns_Empty_Results_When_Given_One_Person() {
-        List<Person> list = new ArrayList<Person>();
+        List<Person> list = new ArrayList<>();
         list.add(sue);
 
         Finder finder = new Finder(list);
 
-        PersonsComparison result = finder.Find(FinderType.CLOSEST);
+        PersonsAgeComparison result = finder.findByFinderType(FinderType.CLOSEST);
 
         assertEquals(null, result.getYoungestPerson());
         assertEquals(null, result.getOldestPerson());
@@ -58,12 +58,12 @@ public class FinderTests {
 
     @Test
     public void Returns_Closest_Two_For_Two_People() {
-        List<Person> list = new ArrayList<Person>();
+        List<Person> list = new ArrayList<>();
         list.add(sue);
         list.add(greg);
         Finder finder = new Finder(list);
 
-        PersonsComparison result = finder.Find(FinderType.CLOSEST);
+        PersonsAgeComparison result = finder.findByFinderType(FinderType.CLOSEST);
 
         assertEquals(sue, result.getYoungestPerson());
         assertEquals(greg, result.getOldestPerson());
@@ -71,13 +71,13 @@ public class FinderTests {
 
     @Test
     public void Returns_Furthest_Two_For_Two_People() {
-        List<Person> list = new ArrayList<Person>();
+        List<Person> list = new ArrayList<>();
         list.add(mike);
         list.add(greg);
 
         Finder finder = new Finder(list);
 
-        PersonsComparison result = finder.Find(FinderType.FURTHEST);
+        PersonsAgeComparison result = finder.findByFinderType(FinderType.FURTHEST);
 
         assertEquals(greg, result.getYoungestPerson());
         assertEquals(mike, result.getOldestPerson());
@@ -85,14 +85,14 @@ public class FinderTests {
 
     @Test
     public void Returns_Furthest_Two_For_Four_People() {
-        List<Person> list = new ArrayList<Person>();
+        List<Person> list = new ArrayList<>();
         list.add(sue);
         list.add(sarah);
         list.add(mike);
         list.add(greg);
         Finder finder = new Finder(list);
 
-        PersonsComparison result = finder.Find(FinderType.FURTHEST);
+        PersonsAgeComparison result = finder.findByFinderType(FinderType.FURTHEST);
 
         assertEquals(sue, result.getYoungestPerson());
         assertEquals(sarah, result.getOldestPerson());
@@ -100,7 +100,7 @@ public class FinderTests {
 
     @Test
     public void Returns_Closest_Two_For_Four_People() {
-        List<Person> list = new ArrayList<Person>();
+        List<Person> list = new ArrayList<>();
         list.add(sue);
         list.add(sarah);
         list.add(mike);
@@ -108,7 +108,7 @@ public class FinderTests {
 
         Finder finder = new Finder(list);
 
-        PersonsComparison result = finder.Find(FinderType.CLOSEST);
+        PersonsAgeComparison result = finder.findByFinderType(FinderType.CLOSEST);
 
         assertEquals(sue, result.getYoungestPerson());
         assertEquals(greg, result.getOldestPerson());
